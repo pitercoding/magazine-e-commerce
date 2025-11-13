@@ -1,34 +1,19 @@
-import tailwindcss from "tailwindcss";
-import { resolve } from "path";
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
-  // Define o caminho base do projeto (mantenha se for necessário)
-  base: "/MagazineHashtag/",
-
-  plugins: [],
-
+  root: '.', // raiz do projeto
   resolve: {
     alias: {
-      // Alias para facilitar a importação de arquivos
-      '@': resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, 'src'), // @ -> src
     },
   },
-
-  css: {
-    postcss: {
-      plugins: [tailwindcss], // Configuração do PostCSS para o TailwindCSS
-    },
+  server: {
+    port: 5173, // porta padrão do Vite
+    open: true, // abre no navegador automaticamente
   },
-
   build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "./index.html"), // Página principal
-        checkout: resolve(__dirname, "./checkout.html"), // Página de checkout
-        pedidos: resolve(__dirname, "./pedidos.html"), // Página de pedidos
-      },
-    },
-    // Você pode adicionar outras opções de build, como otimizações
+    outDir: 'dist', // pasta de build
+    emptyOutDir: true,
   },
 });

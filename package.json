@@ -1,21 +1,17 @@
 {
-  "name": "magazinehashtag",
-  "version": "1.0.0",
-  "description": "Bem-vindo ao projeto de um **E-commerce Magazine** desenvolvido com **Tailwind CSS** e **Vite**. Este projeto simula um site de compras online, com funcionalidades de navegação por catálogo de produtos, adição ao carrinho, checkout e visualização de pedidos realizados.",
-  "main": "main.js",
+  "name": "hashtag_project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.4",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.4",
-    "vite": "^6.3.1"
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
+    "vite": "^4.5.14"
   }
 }

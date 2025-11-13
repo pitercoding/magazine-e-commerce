@@ -1,34 +1,34 @@
-import { catalogo, salvarLocalStorage, lerLocalStorage } from "./utilidades.js";
+import { catalogo, salvarLocalStorage, lerLocalStorage } from "@/utilidades.js";
 
 const idsProdutoCarrinhoComQuantidade = lerLocalStorage('carrinho') ?? {};
 
+// --- ABRIR E FECHAR CARRINHO ---
 function abrirCarrinho() {
-  document.getElementById("carrinho").classList.add("right-[0px]");
-  document.getElementById("carrinho").classList.remove("right-[-360px]");
+  const carrinho = document.getElementById("carrinho");
+  carrinho.classList.add("right-[0px]");
+  carrinho.classList.remove("right-[-360px]");
 }
 
 function fecharCarrinho() {
-  document.getElementById("carrinho").classList.remove("right-[0px]");
-  document.getElementById("carrinho").classList.add("right-[-360px]");
+  const carrinho = document.getElementById("carrinho");
+  carrinho.classList.remove("right-[0px]");
+  carrinho.classList.add("right-[-360px]");
 }
 
+// --- NAVEGAÇÃO PARA CHECKOUT ---
 function irParaCheckout() {
-  if (Object.keys(idsProdutoCarrinhoComQuantidade).length === 0) {
-    return;
-  }
-  window.location.href = "../checkout.html";
+  if (Object.keys(idsProdutoCarrinhoComQuantidade).length === 0) return;
+  window.location.href = "/checkout.html";
 }
 
+// --- INICIALIZA EVENTOS DO CARRINHO ---
 export function inicializarCarrinho() {
-  const botaoFecharCarrinho = document.getElementById("fechar-carrinho");
-  const botaoAbrirCarrinho = document.getElementById("abrir-carrinho");
-  const botaoIrParaCheckout = document.getElementById("finalizar-compra");
-
-  botaoFecharCarrinho.addEventListener("click", fecharCarrinho);
-  botaoAbrirCarrinho.addEventListener("click", abrirCarrinho);
-  botaoIrParaCheckout.addEventListener("click", irParaCheckout);
+  document.getElementById("fechar-carrinho").addEventListener("click", fecharCarrinho);
+  document.getElementById("abrir-carrinho").addEventListener("click", abrirCarrinho);
+  document.getElementById("finalizar-compra").addEventListener("click", irParaCheckout);
 }
 
+// --- MODIFICAÇÕES NO CARRINHO ---
 function removerDoCarrinho(idProduto) {
   delete idsProdutoCarrinhoComQuantidade[idProduto];
   salvarLocalStorage('carrinho', idsProdutoCarrinhoComQuantidade);
@@ -55,33 +55,23 @@ function decrementarQuantidadeProduto(idProduto) {
 }
 
 function atualizarInformacaoQuantidade(idProduto) {
-  document.getElementById(`quantidade-${idProduto}`).innerText = idsProdutoCarrinhoComQuantidade[idProduto];
+  const qtdElem = document.getElementById(`quantidade-${idProduto}`);
+  if (qtdElem) qtdElem.innerText = idsProdutoCarrinhoComQuantidade[idProduto];
 }
 
+// --- RENDERIZA CADA PRODUTO NO CARRINHO ---
 function desenharProdutoNoCarrinho(idProduto) {
-  const produto = catalogo.find((p) => p.id === idProduto);
-  const containerProdutosCarrinho = document.getElementById("produtos-carrinho");
+  const produto = catalogo.find(p => p.id === idProduto);
+  const container = document.getElementById("produtos-carrinho");
 
-  const elementoArticle = document.createElement("article");
-  const articleClasses = [
-    'flex',
-    'bg-slate-100',
-    'rounded-lg',
-    'p-1',
-    'relative'
-  ];
+  const artigo = document.createElement("article");
+  artigo.classList.add("flex", "bg-slate-100", "rounded-lg", "p-1", "relative");
 
-  articleClasses.forEach(articleClass => elementoArticle.classList.add(articleClass));
-
-  const cartaoProdutoCarrinho = `
+  artigo.innerHTML = `
     <button id="remover-item-${produto.id}" class="absolute top-0 right-2">
       <i class="fa-regular fa-circle-xmark text-slate-500 hover:text-slate-800"></i>
     </button>
-    <img 
-      src="./assets/assets/img/${produto.imagem}" 
-      alt="Carrinho: ${produto.nome}" 
-      class="h-24 rounded-lg"
-    />
+    <img src="/assets/img/${produto.imagem}" alt="Carrinho: ${produto.nome}" class="h-24 rounded-lg" />
     <div class="p-2 flex flex-col justify-between">
       <p class="text-slate-900 text-sm">${produto.nome}</p>
       <p class="text-slate-400 text-xs">Tamanho: M</p>
@@ -93,47 +83,46 @@ function desenharProdutoNoCarrinho(idProduto) {
       <button class='ml-2' id='incrementar-produto-${produto.id}'>+</button>
     </div>`;
 
-  elementoArticle.innerHTML = cartaoProdutoCarrinho;
-  containerProdutosCarrinho.appendChild(elementoArticle);
+  container.appendChild(artigo);
 
-  document.getElementById(`decrementar-produto-${produto.id}`)
-    .addEventListener('click', () => decrementarQuantidadeProduto(produto.id));
-
-  document.getElementById(`incrementar-produto-${produto.id}`)
-    .addEventListener('click', () => incrementarQuantidadeProduto(produto.id));
-
-  document.getElementById(`remover-item-${produto.id}`)
-    .addEventListener('click', () => removerDoCarrinho(produto.id));
+  document.getElementById(`decrementar-produto-${produto.id}`).addEventListener('click', () => decrementarQuantidadeProduto(produto.id));
+  document.getElementById(`incrementar-produto-${produto.id}`).addEventListener('click', () => incrementarQuantidadeProduto(produto.id));
+  document.getElementById(`remover-item-${produto.id}`).addEventListener('click', () => removerDoCarrinho(produto.id));
 }
 
+// --- RENDERIZA TODOS OS PRODUTOS DO CARRINHO ---
 export function renderizarProdutosCarrinho() {
-  const containerProdutosCarrinho = document.getElementById("produtos-carrinho");
-  containerProdutosCarrinho.innerHTML = '';
-
+  const container = document.getElementById("produtos-carrinho");
+  container.innerHTML = '';
   for (const idProduto in idsProdutoCarrinhoComQuantidade) {
     desenharProdutoNoCarrinho(idProduto);
   }
 }
 
+// --- ADICIONA PRODUTO AO CARRINHO E ABRE O MENU ---
 export function adicionarAoCarrinho(idProduto) {
   if (idProduto in idsProdutoCarrinhoComQuantidade) {
     incrementarQuantidadeProduto(idProduto);
-    return;
+  } else {
+    idsProdutoCarrinhoComQuantidade[idProduto] = 1;
+    salvarLocalStorage('carrinho', idsProdutoCarrinhoComQuantidade);
+    desenharProdutoNoCarrinho(idProduto);
   }
-  idsProdutoCarrinhoComQuantidade[idProduto] = 1;
-  salvarLocalStorage('carrinho', idsProdutoCarrinhoComQuantidade);
-  desenharProdutoNoCarrinho(idProduto);
+
   atualizarPrecoCarrinho();
+  abrirCarrinho(); // Abre o carrinho automaticamente ao adicionar
 }
 
+// --- ATUALIZA PREÇO TOTAL ---
 export function atualizarPrecoCarrinho() {
-  const precoCarrinho = document.getElementById("preco-total");
-  let precoTotalCarrinho = 0;
+  const precoElem = document.getElementById("preco-total");
+  if (!precoElem) return;
 
-  for (const idProdutoNoCarrinho in idsProdutoCarrinhoComQuantidade) {
-    const produto = catalogo.find((p) => p.id === idProdutoNoCarrinho);
-    precoTotalCarrinho += produto.preco * idsProdutoCarrinhoComQuantidade[idProdutoNoCarrinho];
+  let total = 0;
+  for (const idProduto in idsProdutoCarrinhoComQuantidade) {
+    const produto = catalogo.find(p => p.id === idProduto);
+    total += produto.preco * idsProdutoCarrinhoComQuantidade[idProduto];
   }
 
-  precoCarrinho.innerText = `Total: $${precoTotalCarrinho}`;
+  precoElem.innerText = `Total: $${total}`;
 }
