@@ -15,5 +15,12 @@ export default defineConfig({
   build: {
     outDir: 'dist', // pasta de build
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        index: path.resolve(__dirname, 'index.html'),
+        checkout: path.resolve(__dirname, 'checkout.html'),
+        pedidos: path.resolve(__dirname, 'pedidos.html'),
+      },
+    },
   },
 });
