@@ -26,20 +26,30 @@
       class="flex bg-slate-900 px-8 py-4 justify-between items-center shadow-md sticky top-0 z-10"
     >
       <a href="/" class="flex items-center gap-2">
-        <img class="h-20 w-auto object-contain block" src="/assets/logo/logo.png" alt="Logo Magazine E-Commerce" />
+        <img
+          class="h-20 w-auto object-contain block"
+          src="/assets/logo/logo.png"
+          alt="Logo Magazine E-Commerce"
+        />
       </a>
 
-      <div class="text-slate-100 flex gap-4 items-center text-2xl">
+      <div class="text-slate-100 flex gap-6 items-center text-2xl">
+        <a href="/index.html" class="hover:text-slate-400 transition">
+          <i class="fa-solid fa-house"></i>
+        </a>
+
         <i class="fa-solid fa-user hover:text-slate-400 cursor-pointer"></i>
-        <i id="abrir-carrinho" class="fa-solid fa-cart-shopping hover:text-slate-400 cursor-pointer"></i>
       </div>
     </header>
 
     <!-- FORMULÁRIO DE CHECKOUT -->
-    <form class="flex flex-col lg:flex-row w-full px-4 lg:px-10 gap-6 py-10 grow">
-      
+    <form
+      class="flex flex-col lg:flex-row w-full px-4 lg:px-10 gap-6 py-10 grow"
+    >
       <!-- Dados do Usuário -->
-      <section class="flex-1 bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+      <section
+        class="flex-1 bg-white rounded-xl p-6 shadow-sm border border-slate-200"
+      >
         <p class="mb-6 text-center font-semibold text-lg">Seus Dados</p>
 
         <!-- Campo -->
@@ -55,7 +65,9 @@
         </div>
 
         <div class="mb-5">
-          <label for="email" class="font-medium text-sm mb-1 block">Email</label>
+          <label for="email" class="font-medium text-sm mb-1 block"
+            >Email</label
+          >
           <input
             type="email"
             id="email"
@@ -66,7 +78,9 @@
         </div>
 
         <div class="mb-5">
-          <label for="telefone" class="font-medium text-sm mb-1 block">Telefone de Contato</label>
+          <label for="telefone" class="font-medium text-sm mb-1 block"
+            >Telefone de Contato</label
+          >
           <input
             type="tel"
             id="telefone"
@@ -78,11 +92,17 @@
       </section>
 
       <!-- Pagamento e Entrega -->
-      <section class="flex-1 bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-        <p class="mb-6 text-center font-semibold text-lg">Pagamento e Entrega</p>
+      <section
+        class="flex-1 bg-white rounded-xl p-6 shadow-sm border border-slate-200"
+      >
+        <p class="mb-6 text-center font-semibold text-lg">
+          Pagamento e Entrega
+        </p>
 
         <div class="mb-5">
-          <label class="font-medium text-sm mb-1 block" for="numero-cartao">Número do Cartão</label>
+          <label class="font-medium text-sm mb-1 block" for="numero-cartao"
+            >Número do Cartão</label
+          >
           <input
             type="text"
             id="numero-cartao"
@@ -105,7 +125,9 @@
           </div>
 
           <div class="flex-1">
-            <label class="font-medium text-sm mb-1 block" for="data-expiracao">Validade</label>
+            <label class="font-medium text-sm mb-1 block" for="data-expiracao"
+              >Validade</label
+            >
             <input
               type="text"
               id="data-expiracao"
@@ -128,7 +150,9 @@
         </div>
 
         <div class="mb-5">
-          <label class="font-medium text-sm mb-1 block" for="endereco">Endereço</label>
+          <label class="font-medium text-sm mb-1 block" for="endereco"
+            >Endereço</label
+          >
           <input
             type="text"
             id="endereco"
@@ -140,7 +164,9 @@
 
         <div class="flex gap-3">
           <div class="flex-1">
-            <label class="font-medium text-sm mb-1 block" for="numero">Número</label>
+            <label class="font-medium text-sm mb-1 block" for="numero"
+              >Número</label
+            >
             <input
               type="text"
               id="numero"
@@ -151,7 +177,9 @@
           </div>
 
           <div class="flex-1">
-            <label class="font-medium text-sm mb-1 block" for="complemento">Complemento</label>
+            <label class="font-medium text-sm mb-1 block" for="complemento"
+              >Complemento</label
+            >
             <input
               type="text"
               id="complemento"
@@ -163,15 +191,19 @@
       </section>
 
       <!-- Produtos e Finalização -->
-      <section class="flex-1 bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col">
-        
+      <section
+        class="flex-1 bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col"
+      >
         <section
           id="container-produtos-checkout"
           class="flex-1 overflow-y-auto flex flex-col gap-4 max-h-[500px]"
         ></section>
 
         <section class="mt-4 flex flex-col gap-3">
-          <p id="preco-total" class="bg-slate-200 text-slate-900 rounded-lg px-5 py-2 font-semibold">
+          <p
+            id="preco-total"
+            class="bg-slate-200 text-slate-900 rounded-lg px-5 py-2 font-semibold"
+          >
             Total: $0
           </p>
           <button
@@ -181,7 +213,6 @@
             Finalizar Compra
           </button>
         </section>
-
       </section>
     </form>
 
