@@ -16,12 +16,12 @@ export function renderizarCatalogo() {
         alt="${produto.nome}" 
         class="group-hover:scale-110 duration-300 my-3 rounded-lg"
       />
-      <p class="text-sm font-semibold">${produto.marca}</p>
-      <p class="text-sm">${produto.nome}</p>
-      <p class="text-sm text-green-700 font-bold">$${produto.preco}</p>
+      <p class="text-sm font-medium text-slate-800">${produto.marca}</p>
+      <p class="text-sm text-slate-700">${produto.nome}</p>
+      <p class="text-sm text-green-700 font-semibold">$${produto.preco}</p>
       <button 
         id="adicionar-${produto.id}" 
-        class="mt-2 bg-slate-950 hover:bg-slate-700 text-slate-200 py-1 rounded">
+        class="mt-2 bg-slate-900 hover:bg-slate-700 text-slate-200 py-1 rounded font-medium transition-colors duration-200">
         <i class="fa-solid fa-cart-plus"></i> Adicionar
       </button>
     `;

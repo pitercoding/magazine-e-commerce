@@ -1,17 +1,26 @@
 import { lerLocalStorage, desenharProdutoSimples, catalogo } from "./utilidades.js";
 
+// --- CRIA UM CARD PARA CADA PEDIDO ---
 function criarPedidoHistorico(pedidoComData) {
   const main = document.getElementsByTagName("main")[0];
 
-  // Cria container do pedido
-  const elementoPedido = `
-    <p class="text-xl font-bold my-4">${new Date(pedidoComData.dataPedido).toLocaleDateString("pt-BR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })}</p>
-    <section id="container-pedidos-${pedidoComData.dataPedido}" class="bg-slate-300 p-3 rounded-md"></section>
-  `;
-  main.innerHTML += elementoPedido;
+  // Container do pedido com estilo moderno
+  const containerPedidoWrapper = document.createElement("section");
+  containerPedidoWrapper.className = "w-full max-w-4xl bg-white rounded-lg shadow-md p-4 my-6 flex flex-col gap-4";
+
+  // Data do pedido
+  const dataPedidoElem = document.createElement("p");
+  dataPedidoElem.className = "text-lg font-semibold text-slate-900";
+  dataPedidoElem.innerText = new Date(pedidoComData.dataPedido).toLocaleDateString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  containerPedidoWrapper.appendChild(dataPedidoElem);
+
+  // Container dos produtos do pedido
+  const containerProdutos = document.createElement("div");
+  containerProdutos.className = "flex flex-col gap-3";
 
   let totalPedido = 0;
 
@@ -21,25 +30,28 @@ function criarPedidoHistorico(pedidoComData) {
 
     if (produto) {
       totalPedido += produto.preco * quantidade;
-      desenharProdutoSimples(
-        idProduto,
-        `container-pedidos-${pedidoComData.dataPedido}`,
-        quantidade
-      );
+
+      // Desenha cada produto dentro do pedido
+      desenharProdutoSimples(idProduto, containerProdutos, quantidade);
     }
   }
 
-  // Adiciona o total do pedido
-  const containerPedido = document.getElementById(`container-pedidos-${pedidoComData.dataPedido}`);
+  containerPedidoWrapper.appendChild(containerProdutos);
+
+  // Total do pedido em verde
   const totalElem = document.createElement("p");
-  totalElem.className = "text-lg font-bold text-green-800 mt-2";
+  totalElem.className = "text-green-700 font-bold text-lg self-end";
   totalElem.innerText = `Total do pedido: $${totalPedido}`;
-  containerPedido.appendChild(totalElem);
+  containerPedidoWrapper.appendChild(totalElem);
+
+  main.appendChild(containerPedidoWrapper);
 }
 
+// --- RENDERIZA TODOS OS PEDIDOS ---
 function renderizarHistoricoPedidos() {
   const historico = lerLocalStorage("historico") ?? [];
   historico.forEach(criarPedidoHistorico);
 }
 
+// Inicializa
 renderizarHistoricoPedidos();
