@@ -1,9 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js}", "./*.html"],
+  content: [
+    "./*.html",              
+    "./src/**/*.{html,js}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
+    },
   },
   plugins: [],
-  safelist: ["feminino", "masculino"],
+  safelist: [
+    "feminino",
+    "masculino",
+  ],
 };
