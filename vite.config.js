@@ -9,7 +9,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173, // porta padrão do Vite
+    port: 5173,
     open: true, // abre no navegador automaticamente
   },
   build: {
@@ -18,6 +18,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: path.resolve(__dirname, 'index.html'),
+        login: path.resolve(__dirname, 'login.html'),
         checkout: path.resolve(__dirname, 'checkout.html'),
         pedidos: path.resolve(__dirname, 'pedidos.html'),
       },

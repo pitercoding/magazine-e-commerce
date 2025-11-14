@@ -80,25 +80,35 @@ export const catalogo = [
     localStorage.removeItem(chave);
   }
   
-  // Função para desenhar um produto simples (usado em vários locais como visualização do carrinho)
-  export function desenharProdutoSimples(idProduto, idContainerHtml, quantidadeProduto) {
+// Função para desenhar um produto simples (usado em carrinho, checkout e pedidos)
+export function desenharProdutoSimples(idProduto, container, quantidadeProduto) {
   const produto = catalogo.find(p => p.id === idProduto);
-  const container = document.getElementById(idContainerHtml);
+
+  if (!produto) return;
+
+  // Se o container for string, pega o elemento pelo ID
+  if (typeof container === "string") {
+    container = document.getElementById(container);
+  }
 
   const artigo = document.createElement("article");
-  artigo.className = "flex bg-stone-200 rounded-lg p-1 relative mb-2 w-96";
+  artigo.className = "flex bg-slate-100 rounded-lg p-3 relative shadow-md mb-3 w-full lg:w-full";
 
   artigo.innerHTML = `
-    <img src="/assets/img/${produto.imagem}" alt="Carrinho: ${produto.nome}" class="h-24 rounded-lg" />
-    <div class="p-2 flex flex-col justify-between">
-      <p class="text-slate-900 text-sm">${produto.nome}</p>
-      <p class="text-slate-400 text-xs">Tamanho: M</p>
-      <p class="text-green-700 text-lg">$${produto.preco}</p>
+    <div class="flex gap-3">
+      <img src="/assets/img/${produto.imagem}" alt="${produto.nome}" class="w-24 h-24 rounded-lg object-contain" />
+      <div class="flex-1 flex flex-col justify-between">
+        <p class="text-sm font-semibold text-slate-900">${produto.marca}</p>
+        <p class="text-sm text-slate-800">${produto.nome}</p>
+        <p class="text-green-700 text-lg font-bold">$${produto.preco}</p>
+      </div>
     </div>
-    <div class='flex text-slate-950 items-end absolute bottom-0 right-2 text-lg'>
-      <p id='quantidade-${produto.id}' class='ml-2'>${quantidadeProduto}</p>
-    </div>`;
+    <div class="flex justify-end mt-2">
+      <p class="font-medium text-slate-900">Qtd: <span id="quantidade-${produto.id}" class="text-green-700">${quantidadeProduto}</span></p>
+    </div>
+  `;
 
   container.appendChild(artigo);
 }
+
   

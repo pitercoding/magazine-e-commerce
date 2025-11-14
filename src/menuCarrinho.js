@@ -65,23 +65,24 @@ function desenharProdutoNoCarrinho(idProduto) {
   const container = document.getElementById("produtos-carrinho");
 
   const artigo = document.createElement("article");
-  artigo.classList.add("flex", "bg-slate-100", "rounded-lg", "p-1", "relative");
+  artigo.className = "flex bg-slate-100 rounded-lg p-2 gap-3 relative shadow-md items-center";
 
   artigo.innerHTML = `
-    <button id="remover-item-${produto.id}" class="absolute top-0 right-2">
-      <i class="fa-regular fa-circle-xmark text-slate-500 hover:text-slate-800"></i>
+    <button id="remover-item-${produto.id}" class="absolute top-1 right-2 text-slate-500 hover:text-slate-800">
+      <i class="fa-regular fa-circle-xmark"></i>
     </button>
-    <img src="/assets/img/${produto.imagem}" alt="Carrinho: ${produto.nome}" class="h-24 rounded-lg" />
-    <div class="p-2 flex flex-col justify-between">
-      <p class="text-slate-900 text-sm">${produto.nome}</p>
-      <p class="text-slate-400 text-xs">Tamanho: M</p>
-      <p class="text-green-700 text-lg">$${produto.preco}</p>
+    <img src="/assets/img/${produto.imagem}" alt="Carrinho: ${produto.nome}" class="h-24 rounded-lg object-contain" />
+    <div class="flex flex-col justify-between flex-1">
+      <p class="text-slate-800 text-sm font-medium">${produto.nome}</p>
+      <p class="text-slate-500 text-xs">Tamanho: M</p>
+      <p class="text-green-700 text-lg font-semibold">$${produto.preco}</p>
     </div>
-    <div class='flex text-slate-950 items-end absolute bottom-0 right-2 text-lg'>
-      <button id='decrementar-produto-${produto.id}'>-</button>
-      <p id='quantidade-${produto.id}' class='ml-2'>${idsProdutoCarrinhoComQuantidade[produto.id]}</p>
-      <button class='ml-2' id='incrementar-produto-${produto.id}'>+</button>
-    </div>`;
+    <div class="flex items-center gap-2 text-slate-900 text-lg">
+      <button id="decrementar-produto-${produto.id}" class="px-2 py-1 bg-slate-200 rounded hover:bg-slate-300">-</button>
+      <p id="quantidade-${produto.id}" class="px-2">${idsProdutoCarrinhoComQuantidade[produto.id]}</p>
+      <button id="incrementar-produto-${produto.id}" class="px-2 py-1 bg-slate-200 rounded hover:bg-slate-300">+</button>
+    </div>
+  `;
 
   container.appendChild(artigo);
 
@@ -110,7 +111,7 @@ export function adicionarAoCarrinho(idProduto) {
   }
 
   atualizarPrecoCarrinho();
-  abrirCarrinho(); // Abre o carrinho automaticamente ao adicionar
+  abrirCarrinho(); // Abre automaticamente ao adicionar
 }
 
 // --- ATUALIZA PREÇO TOTAL ---
